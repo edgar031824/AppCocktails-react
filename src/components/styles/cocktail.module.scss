@@ -1,0 +1,9 @@
+.cocktail {
+  & :nth-child(2) {
+    img {
+      width: 50%;
+      margin: auto;
+      margin-top: 1rem;
+    }
+  }
+}
