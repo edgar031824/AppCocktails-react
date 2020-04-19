@@ -5,6 +5,28 @@ export let resultContext = createContext();
 const ResultProvider = ({ children }) => {
 	const [search, setSearch] = useState({});
 	const [results, setResults] = useState([]);
+	const [detail, setDetail] = useState('');
+	const [cocktailInfo, setCocktailInfo] = useState({});
+	const [loading, setLoading] = useState(false)
+
+	useEffect(() => {
+		const fetchDetail = async () => {
+			if (detail) {
+				try {
+					const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${detail}`;
+					const response = await fetch(url);
+					const cocktail = await response.json();
+
+					setLoading(false)
+					setCocktailInfo(cocktail.drinks[0]);
+
+				} catch (error) {
+					console.warn(error);
+				}
+			}
+		}
+		fetchDetail();
+	}, [detail])
 
 	useEffect(() => {
 		const fetchResults = async () => {
@@ -17,8 +39,8 @@ const ResultProvider = ({ children }) => {
 					const response = await fetch(url);
 					const cocktails = await response.json();
 
+					setLoading(false)
 					setResults(cocktails.drinks);
-					console.log(cocktails.drinks);
 
 				} catch (error) {
 					console.warn(error);
@@ -34,7 +56,12 @@ const ResultProvider = ({ children }) => {
 		<resultContext.Provider
 			value={{
 				setSearch,
-				results
+				setDetail,
+				results,
+				setCocktailInfo,
+				cocktailInfo,
+				setLoading,
+				loading
 			}}
 		>
 			{children}

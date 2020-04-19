@@ -1,6 +1,17 @@
 .wrapper {
   margin: 3rem 3rem;
 
+  .spinner {
+    display: flex;
+    justify-content: center;
+  }
+
+  .modal {
+    & :nth-child(2) {
+      border: 8px solid #A7A7A5;
+    }
+  }
+
   .column {
     display: flex;
     justify-content: center;
@@ -16,7 +27,7 @@
 
       [type="button"] {
         border-color: transparent;
-        background-color: #EC836D;
+        background-color: #FA9F39;
         margin-top: 1.5rem;
         text-align: -webkit-center;
         text-align: -moz-center;

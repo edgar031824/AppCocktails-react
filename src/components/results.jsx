@@ -1,18 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { resultContext } from '../context/resultContext';
 import { Card } from 'antd';
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Button, Modal, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import Styles from './styles/result.module.scss'
+import Cocktail from './cocktail';
 
 const Results = () => {
-	var { results } = useContext(resultContext);
+	const { results, setDetail, setCocktailInfo, loading } = useContext(resultContext);
 	const { Meta } = Card;
-	const handleClick = () => {
-
+	const [modalVisibility, setModalVisibility] = useState(false);
+	const antIcon = <LoadingOutlined style={{ fontSize: 50 }} spin />;
+	const handleClick = async (itemId) => {
+		setDetail(itemId);
+		setModalVisibility(true)
+	}
+	const onClose = () => {
+		setCocktailInfo({});
+		setModalVisibility(false)
 	}
 
-	return (
-		<div className={Styles.wrapper}>
+	const content = !loading ?
+		<>
 			<Row>
 				{results.map(item => (
 					<Col className={Styles.column} key={item.idDrink} xs={24} sm={12} md={8} lg={8} xl={6}>
@@ -20,17 +29,34 @@ const Results = () => {
 							hoverable
 							cover={<img alt="example" src={item.strDrinkThumb} />}
 							className={Styles.card}
+							loading={!results.length ? true : false}
 						>
 							<Meta title={item.strDrink} />
-							<Button type="primary" onClick={handleClick}>
+							<Button type="primary" onClick={() => handleClick(item.idDrink)}>
 								Show detail
-    				</Button>
-						</Card>,
+			</Button>
+						</Card>
 					</Col>
 				))}
 			</Row>
+			<Modal
+				visible={modalVisibility}
+				onCancel={onClose}
+				footer={null}
+				className={Styles.modal}
+			>
+				<Cocktail></Cocktail>
+			</Modal>
+		</>
+		:
+		<div className={Styles.spinner}>
+			<Spin indicator={antIcon} />
 		</div>
 
+	return (
+		<div className={Styles.wrapper}>
+			{content}
+		</div >
 	);
 };
 

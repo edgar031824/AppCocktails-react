@@ -31,8 +31,30 @@ const StyleDiv = styled.div`
 
 		[type="button"] {
       border-color: transparent;
-      background-color: #EC836D;
-    }
+			background-color: #FA9F39;
+			color: white;
+		}
+
+		@media (min-width: 769px) and (max-width: 1200px ) {
+			.childElement {
+				max-width: 50%;
+				width: 10rem;
+			}
+		}
+
+		@media (max-width: 768px) {
+		  .childElement {
+			 max-width:100%;
+			 width: 70%;
+			 margin-top: 1rem;
+			}
+		}
+		@media (max-width: 400px) {
+		  .childElement {
+			 max-width:100%;
+			 width: 100%;
+			}
+		}
 	`;
 
 
@@ -44,7 +66,7 @@ const Search = () => {
 	const [selectedIngredient, setSelectedIngredient] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState('');
 	const [disabled, setDisabled] = useState(true);
-	const { setSearch } = useContext(resultContext);
+	const { setSearch, setLoading } = useContext(resultContext);
 	const handleChange = (value, info) => {
 		const { key } = info;
 		if (key && key.includes('p')) {
@@ -54,6 +76,7 @@ const Search = () => {
 		}
 	}
 	const handleClick = () => {
+		setLoading(true);
 		setSearch({ selectedIngredient, selectedCategory });
 	}
 
@@ -86,7 +109,7 @@ const Search = () => {
 
 	return (
 		<Wrapper>
-			<TitleSearch>You can search by category, ingredient or both</TitleSearch>
+			<TitleSearch>You can search by category or ingredient</TitleSearch>
 			<StyleDiv>
 				<Select
 					className={'childElement'}
@@ -97,14 +120,21 @@ const Search = () => {
 						option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
 					}
 					showSearch
+					loading={!ingredients.length ? true : false}
 				>
-					<Option key={'p'} value="">Select an ingredient</Option>
+					<Option key={'p'} value="">Search by ingredient</Option>
 					{ingredients.map((item, idx) => (
 						<Option key={`p-${idx}`} value={item.strIngredient1}>{item.strIngredient1}</Option>
 					))}
 				</Select>
-				<Select className={'childElement'} defaultValue="" onChange={handleChange} value={selectedCategory}>
-					<Option value="">Select a category</Option>
+				<Select
+					className={'childElement'}
+					defaultValue=""
+					onChange={handleChange}
+					value={selectedCategory}
+					loading={!categories.length ? true : false}
+				>
+					<Option value="">Search by category</Option>
 					{categories.map((item, idx) => (
 						<Option key={idx} value={item.strCategory}>{item.strCategory}</Option>
 					))}
