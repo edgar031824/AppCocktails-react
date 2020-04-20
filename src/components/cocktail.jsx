@@ -27,7 +27,7 @@ const Cocktail = () => {
 			title={cocktailInfo.strDrink}
 			bordered={false}
 			loading={!Object.keys(cocktailInfo).length ? true : false}
-			cover={<img alt="example" src={cocktailInfo.strDrinkThumb} />}
+			cover={<img alt="example" src={cocktailInfo.strDrinkThumb} loading="lazy" />}
 		>
 			<h4>Ingredients</h4>
 			<ul>

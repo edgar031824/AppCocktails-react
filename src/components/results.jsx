@@ -27,7 +27,7 @@ const Results = () => {
 					<Col className={Styles.column} key={item.idDrink} xs={24} sm={12} md={8} lg={8} xl={6}>
 						<Card
 							hoverable
-							cover={<img alt="example" src={item.strDrinkThumb} />}
+							cover={<img alt="example" src={item.strDrinkThumb} loading="lazy" />}
 							className={Styles.card}
 							loading={!results.length ? true : false}
 						>
