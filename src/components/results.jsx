@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { resultContext } from '../context/resultContext';
-import { Card } from 'antd';
-import { Row, Col, Button, Modal, Spin } from 'antd';
+import { Row, Col, Button, Modal, Spin, Card } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import Styles from './styles/result.module.scss'
 import Cocktail from './cocktail';
@@ -17,6 +16,7 @@ const Results = () => {
 	}
 	const onClose = () => {
 		setCocktailInfo({});
+		setDetail('');
 		setModalVisibility(false)
 	}
 

@@ -17,7 +17,7 @@ const ResultProvider = ({ children }) => {
 					const response = await fetch(url);
 					const cocktail = await response.json();
 
-					setLoading(false)
+					setLoading(false);
 					setCocktailInfo(cocktail.drinks[0]);
 
 				} catch (error) {

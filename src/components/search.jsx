@@ -71,8 +71,10 @@ const Search = () => {
 		const { key } = info;
 		if (key && key.includes('p')) {
 			setSelectedIngredient(value);
+			setSelectedCategory('');
 		} else {
 			setSelectedCategory(value);
+			setSelectedIngredient('');
 		}
 	}
 	const handleClick = () => {
@@ -101,6 +103,7 @@ const Search = () => {
 			const ingredientResponse = await fetch(igredientUrl);
 			const ingredients = await ingredientResponse.json();
 
+
 			setIngredients(ingredients.drinks);
 			setCategories(categories.drinks);
 		};
@@ -109,7 +112,7 @@ const Search = () => {
 
 	return (
 		<Wrapper>
-			<TitleSearch>You can search by category or ingredient</TitleSearch>
+			<TitleSearch>You can search by category or ingredient, NOT both.</TitleSearch>
 			<StyleDiv>
 				<Select
 					className={'childElement'}
