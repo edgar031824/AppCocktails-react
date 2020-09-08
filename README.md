@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This application has been developed in react, using hooks, styled-components, antd3, CSS modules, and context. you can see the functionality on:
+https://app.netlify.com/sites/nervous-ramanujan-5717c7/overview
+
 ## Available Scripts
 
 In the project directory, you can run:
